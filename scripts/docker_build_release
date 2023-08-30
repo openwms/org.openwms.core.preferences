@@ -1,0 +1,2 @@
+#!/bin/bash
+docker build -t openwms/org.openwms.core.preferences:$VERSION-$GITHUB_RUN_NUMBER .
