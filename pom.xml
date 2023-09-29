@@ -394,12 +394,12 @@
                 <repository>
                     <id>interface21-releases</id>
                     <name>OpenWMS.org Release Repository</name>
-                    <url>https://repo.butan092.startdedicated.de/repository/maven-releases</url>
+                    <url>https://repo.openwms.cloud/repository/maven-releases</url>
                 </repository>
                 <snapshotRepository>
                     <id>interface21-snapshots</id>
                     <name>OpenWMS.org Snapshot Repository</name>
-                    <url>https://repo.butan092.startdedicated.de/repository/maven-snapshots</url>
+                    <url>https://repo.openwms.cloud/repository/maven-snapshots</url>
                 </snapshotRepository>
                 <site>
                     <id>site</id>
@@ -417,7 +417,7 @@
                 <repository>
                     <id>interface21-snapshots</id>
                     <name>Interface21.io Snapshot Repository</name>
-                    <url>https://repo.butan092.startdedicated.de/repository/maven-snapshots</url>
+                    <url>https://repo.openwms.cloud/repository/maven-snapshots</url>
                     <snapshots>
                         <enabled>true</enabled>
                     </snapshots>
@@ -428,7 +428,7 @@
                 <repository>
                     <id>interface21-releases</id>
                     <name>Interface21.io Release Repository</name>
-                    <url>https://repo.butan092.startdedicated.de/repository/maven-releases</url>
+                    <url>https://repo.openwms.cloud/repository/maven-releases</url>
                     <snapshots>
                         <enabled>false</enabled>
                     </snapshots>
