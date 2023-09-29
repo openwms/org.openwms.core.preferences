@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.openwms</groupId>
         <artifactId>org.openwms.parent</artifactId>
-        <version>24</version>
+        <version>25</version>
         <relativePath/>
     </parent>
     <artifactId>org.openwms.core.preferences</artifactId>
@@ -66,13 +66,13 @@
     </ciManagement>
 
     <properties>
-        <core.version>2.0.0</core.version>
+        <core.version>2.1.0-SNAPSHOT</core.version>
         <guava.version>30.0-jre</guava.version>
         <objenesis.version>3.2</objenesis.version>
         <org.openwms.core.preferences.lib.version>1.0.0-SNAPSHOT</org.openwms.core.preferences.lib.version>
         <org.openwms.core.preferences.ui.version>1.0.0-SNAPSHOT</org.openwms.core.preferences.ui.version>
         <servo-core.version>0.12.21</servo-core.version>
-        <spring-cloud-dependencies.version>2021.0.7</spring-cloud-dependencies.version>
+        <spring-cloud-dependencies.version>2021.0.8</spring-cloud-dependencies.version>
     </properties>
 
     <reporting>
