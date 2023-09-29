@@ -34,6 +34,7 @@
         <logger name="CALLCONTEXT" level="OFF"/>
         <logger name="MEASURED" level="INFO"/>
         <root level="INFO">
+            <appender-ref ref="STDOUT"/>
             <appender-ref ref="ELK"/>
         </root>
     </springProfile>
