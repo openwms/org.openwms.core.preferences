@@ -66,9 +66,9 @@
     </ciManagement>
 
     <properties>
+        <commons-io.version>2.11.0</commons-io.version>
         <core.version>2.1.0-SNAPSHOT</core.version>
         <guava.version>30.0-jre</guava.version>
-        <objenesis.version>3.2</objenesis.version>
         <org.openwms.core.preferences.lib.version>1.0.0-SNAPSHOT</org.openwms.core.preferences.lib.version>
         <org.openwms.core.preferences.ui.version>1.0.0-SNAPSHOT</org.openwms.core.preferences.ui.version>
         <servo-core.version>0.12.21</servo-core.version>
@@ -130,6 +130,13 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <!-- Clash between Dozer and OpenFeign -->
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+            <dependency>
+                <!-- Clash in org.springframework.cloud:spring-cloud-starter-netflix-eureka-client -->
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
@@ -139,12 +146,6 @@
                 <groupId>com.netflix.servo</groupId>
                 <artifactId>servo-core</artifactId>
                 <version>${servo-core.version}</version>
-            </dependency>
-            <dependency>
-                <!-- Clash between Dozer and spring-boot-starter-test -->
-                <groupId>org.objenesis</groupId>
-                <artifactId>objenesis</artifactId>
-                <version>${objenesis.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.openwms</groupId>
@@ -263,12 +264,6 @@
         <dependency>
             <groupId>com.github.dozermapper</groupId>
             <artifactId>dozer-core</artifactId>
-        </dependency>
-        <dependency>
-            <!-- Need to upgrade Guava from version 11 because of CVE -->
-            <!-- Required by eureka-client -->
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
