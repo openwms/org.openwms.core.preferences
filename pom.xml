@@ -66,9 +66,10 @@
     </ciManagement>
 
     <properties>
+        <checker-qual.version>3.33.0</checker-qual.version>
         <commons-io.version>2.11.0</commons-io.version>
         <core.version>2.1.0-SNAPSHOT</core.version>
-        <guava.version>30.0-jre</guava.version>
+        <guava.version>32.0.0-jre</guava.version>
         <org.openwms.core.preferences.lib.version>1.0.0-SNAPSHOT</org.openwms.core.preferences.lib.version>
         <org.openwms.core.preferences.ui.version>1.0.0-SNAPSHOT</org.openwms.core.preferences.ui.version>
         <servo-core.version>0.12.21</servo-core.version>
@@ -146,6 +147,12 @@
                 <groupId>com.netflix.servo</groupId>
                 <artifactId>servo-core</artifactId>
                 <version>${servo-core.version}</version>
+            </dependency>
+            <dependency>
+                <!-- Clash between Guava and postgres driver -->
+                <groupId>org.checkerframework</groupId>
+                <artifactId>checker-qual</artifactId>
+                <version>${checker-qual.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.openwms</groupId>
