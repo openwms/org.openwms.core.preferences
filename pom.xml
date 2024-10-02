@@ -119,10 +119,10 @@
                     </execution>
                 </executions>
                 <configuration>
-					<layers>
-						<configuration>${project.basedir}/src/layers.xml</configuration>
-						<enabled>true</enabled>
-					</layers>
+                    <layers>
+                        <configuration>${project.basedir}/src/layers.xml</configuration>
+                        <enabled>true</enabled>
+                    </layers>
                 </configuration>
             </plugin>
         </plugins>
