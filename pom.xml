@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.openwms</groupId>
         <artifactId>org.openwms.parent</artifactId>
-        <version>27.1</version>
+        <version>27.2</version>
         <relativePath/>
     </parent>
     <artifactId>org.openwms.core.preferences</artifactId>
@@ -38,7 +38,7 @@
         <commons-io.version>2.11.0</commons-io.version>
         <core.preferences.lib.version>1.0.0-SNAPSHOT</core.preferences.lib.version>
         <core.preferences.ui.version>1.0.0-SNAPSHOT</core.preferences.ui.version>
-        <core.version>3.0.0-SNAPSHOT</core.version>
+        <core.version>3.0.0</core.version>
         <dozer.version>7.0.0</dozer.version>
         <error_prone_annotations.version>2.28.0</error_prone_annotations.version>
         <httpclient.version>4.5.14</httpclient.version>
