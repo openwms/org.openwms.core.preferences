@@ -28,13 +28,12 @@ spring:
       date-time: "yyyy-MM-dd'T'HH:mm:ssXXX" # Must match the pattern how of @JsonFormat field annotation patterns
       date: yyyy-MM-dd
       time: HH:mm:ss
-  output:
-    ansi:
-      enabled: always
 
 owms:
   eureka:
-    url: http://${owms.eureka.user.name}:${owms.eureka.user.password}@localhost:8761
+    hostname: localhost
+    port: 8761
+    url: http://${owms.eureka.user.name}:${owms.eureka.user.password}@${owms.eureka.hostname}:${owms.eureka.port}
     user:
       name: user
       password: sa
@@ -42,8 +41,6 @@ owms:
   srv:
     hostname: localhost
     protocol: http
-  tracing:
-    url: http://localhost:4317
 
 server:
   port: ${PORT:8125}
@@ -95,6 +92,22 @@ management:
   info:
     git:
       mode: simple
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: OLTP
+
+owms:
+  tracing:
+    url: http://localhost:4317
+
+management:
   metrics:
     distribution:
       percentiles-histogram:
@@ -107,10 +120,6 @@ management:
   otlp:
     tracing:
       endpoint: ${owms.tracing.url}
-  prometheus:
-    metrics:
-      export:
-        enabled: true
   tracing:
     sampling:
       probability: 1.0
@@ -119,7 +128,7 @@ management:
 spring:
   config:
     activate:
-      on-profile: ASYNCHRONOUS
+      on-profile: AMQP
   rabbitmq:
     listener:
       simple:
@@ -141,6 +150,21 @@ owms:
     core:
       preferences:
         exchange-name: preferences
+
+---
+spring:
+  config:
+    activate:
+      on-profile: RDBMS
+  datasource:
+    driver-class-name: ${DB_DRIVER_CLASS:org.postgresql.Driver}
+    url: ${DB_URL:jdbc:postgresql://db/demodb}
+    username: ${DB_USERNAME:demo}
+    password: ${DB_PASSWORD:DEMO}
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
 
 ---
 # Might run in standalone or distributed environment
@@ -242,7 +266,6 @@ spring:
     generate-ddl: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
         temp:
           use_jdbc_metadata_defaults: false
         default_schema: public

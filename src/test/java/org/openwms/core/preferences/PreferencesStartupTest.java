@@ -13,7 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * Contains the main application that manages Preferences and Configuration parameters.
- */
 package org.openwms.core.preferences;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+/**
+ * A PreferencesStartupTest.
+ *
+ * @author Heiko Scherrer
+ */
+@SpringBootTest
+class PreferencesStartupTest {
+
+    @Test void contextLoads() {
+        // Just try to load the context
+    }
+}
