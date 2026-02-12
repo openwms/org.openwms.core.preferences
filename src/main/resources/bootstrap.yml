@@ -1,6 +1,10 @@
 spring:
   application:
     name: preferences-service
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration
   security:
     user:
       name: user
@@ -180,9 +184,15 @@ spring:
   config:
     activate:
       on-profile: MONGODB
+  autoconfigure:
+    exclude: []
   data:
     mongodb:
       uri: ${DB_URL:mongodb://demo:DEMO@localhost/demodb}
+management:
+  health:
+    mongo:
+      enabled: false
 
 ---
 # Might run in standalone or distributed environment

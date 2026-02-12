@@ -15,24 +15,21 @@
  */
 package org.openwms.core.preferences;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
- * A PreferencesStarter is the main SpringBoot class.
+ * A PreferencesJpaConfiguration.
  *
  * @author Heiko Scherrer
  */
-@SpringBootApplication
-public class PreferencesStarter {
-
-    /**
-     * Boot up!
-     *
-     * @param args Some args
-     */
-    public static void main(String[] args) {
-        var ctx = SpringApplication.run(PreferencesStarter.class, args);
-        ctx.start();
-    }
+@Profile("!MONGODB")
+@Configuration
+@EnableJpaRepositories
+@EnableJpaAuditing
+@EnableTransactionManagement
+class PreferencesJpaConfiguration {
 }
