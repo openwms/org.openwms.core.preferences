@@ -171,6 +171,18 @@ spring:
     generate-ddl: true
     hibernate:
       ddl-auto: update
+  data:
+    jdbc:
+      dialect: ${DB_DIALECT:postgresql}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: MONGODB
+  data:
+    mongodb:
+      uri: ${DB_URL:mongodb://demo:DEMO@localhost/demodb}
 
 ---
 # Might run in standalone or distributed environment
