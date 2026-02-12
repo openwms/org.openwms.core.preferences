@@ -33,6 +33,7 @@
             <item name="Home" href="index.html" />
             <item name="REST API Documentation" href="https://openwms.github.io/org.openwms.core.preferences.lib/rest/${project.version}/api.html" />
             <item name="Wiki" href="https://wiki.openwms.cloud/projects/core-preferences-service/wiki" />
+            <item name="Configuration" href="https://openwms.github.io/org.openwms.core.preferences.lib/configuration.html" />
             <item name="Javadoc" href="https://openwms.github.io/org.openwms.core.preferences.lib/apidocs/index.html" />
             <item name="Database Schema" href="https://openwms.github.io/org.openwms.core.preferences.lib/schemaspy/index.html" />
             <item name="Sonar" href="https://sonarcloud.io/dashboard?id=org.openwms:org.openwms.core.preferences.lib" />
