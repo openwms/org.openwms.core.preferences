@@ -138,7 +138,7 @@ management:
 spring:
   config:
     activate:
-      on-profile: AMQP
+      on-profile: ASYNCHRONOUS
   rabbitmq:
     listener:
       simple:
