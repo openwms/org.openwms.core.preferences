@@ -129,6 +129,14 @@ jobs:
           DOCKER_USER: ${{ secrets.REPO_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.REPO_PASSWORD }}
 
+      - name: Install tools
+        if: steps.version-check.outputs.should_publish == 'true'
+        run: |
+          sudo apt-get update
+          sudo apt-get install graphviz gsfonts graphviz-doc
+          git config --global user.email "ci@example.com"
+          git config --global user.name "CI Server"
+
       - name: Site
         if: steps.version-check.outputs.should_publish == 'true'
         run: >
