@@ -34,11 +34,9 @@
     </developers>
 
     <properties>
-        <commons-io.version>2.11.0</commons-io.version>
         <core.preferences.lib.version>1.1.1-SNAPSHOT</core.preferences.lib.version>
         <core.preferences.ui.version>1.1.1-SNAPSHOT</core.preferences.ui.version>
         <core.version>3.0.0</core.version>
-        <httpclient.version>4.5.14</httpclient.version>
         <spring-cloud-dependencies.version>2025.0.0</spring-cloud-dependencies.version>
     </properties>
 
@@ -96,18 +94,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <!-- Mismatch between Eureka Client and feign-httpclient -->
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>${httpclient.version}</version>
-            </dependency>
-            <dependency>
-                <!-- Clash between Dozer and OpenFeign -->
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>${commons-io.version}</version>
-            </dependency>
             <dependency>
                 <groupId>org.openwms</groupId>
                 <artifactId>org.openwms.core.preferences.lib</artifactId>
