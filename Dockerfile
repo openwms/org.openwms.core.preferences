@@ -1,15 +1,15 @@
-FROM bellsoft/liberica-openjre-alpine:21-cds as builder
-MAINTAINER interface21.io <product@openwms.org>
-ENV LANG en_GB.UTF-8
+FROM bellsoft/liberica-openjre-alpine:25-cds AS builder
+LABEL maintainer="interface21.io <product@openwms.org>"
+ENV LANG=en_GB.UTF-8
 WORKDIR application
 ARG JAR_FILE=target/openwms-core-preferences-exec.jar
 COPY ${JAR_FILE} application.jar
-RUN java -Djarmode=layertools -jar application.jar extract
+RUN java -Djarmode=tools -jar application.jar extract --layers --launcher --destination extracted
 
-FROM bellsoft/liberica-openjre-alpine:21-cds
+FROM bellsoft/liberica-openjre-alpine:25-cds
 WORKDIR application
-COPY --from=builder application/dependencies/ ./
-COPY --from=builder application/spring-boot-loader/ ./
-COPY --from=builder application/snapshot-dependencies/ ./
-COPY --from=builder application/application/ ./
+COPY --from=builder application/extracted/dependencies/ ./
+COPY --from=builder application/extracted/spring-boot-loader/ ./
+COPY --from=builder application/extracted/snapshot-dependencies/ ./
+COPY --from=builder application/extracted/application/ ./
 ENTRYPOINT exec java org.springframework.boot.loader.launch.JarLauncher
