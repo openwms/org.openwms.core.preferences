@@ -1,2 +1,2 @@
 #!/bin/bash
-docker build --platform linux/amd64 -t openwms/org.openwms.core.preferences:$1 .
+docker build --platform linux/amd64 -t interface21/org.openwms.core.preferences:${1:-latest} .

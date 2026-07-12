@@ -1,0 +1,23 @@
+owms:
+  tracing:
+    url: http://localhost:4317
+
+management:
+  metrics:
+    distribution:
+      percentiles-histogram:
+        greeting: true
+        http:
+          server:
+            requests: true
+    tags:
+      application: ${spring.application.name}
+  opentelemetry:
+    tracing:
+      export:
+        otlp:
+          endpoint: ${owms.tracing.url}
+          transport: grpc
+  tracing:
+    sampling:
+      probability: 1.0

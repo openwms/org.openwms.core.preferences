@@ -3,6 +3,30 @@ The OpenWMS.org Preferences Service deals with configuration and preferences for
 configuration parameters in different validity scopes. Scopes can be merged and inherited. Preferences might be stored only valid for a
 particular *User* or a specific *Role*, specific to a *Module* (aka microservice) or the whole *Application*.  
 
+The service is built with Spring Boot 4.1 and runs on Java 25 (BellSoft Liberica). It exposes Prometheus metrics at
+`/actuator/prometheus` and exports traces via OTLP to the collector configured with `owms.tracing.url`.
+
+# Build
+A JDK 25 and Maven 3.9+ are required to build. Build the runnable fat jar with all unit and in-memory database integration tests but
+without a required [RabbitMQ](https://www.rabbitmq.com) server:
+
+```
+./mvnw package
+```
+
+To also run the tests against a RabbitMQ instance, running locally with default settings, activate the `AMQP` profile:
+
+```
+./mvnw package -DsurefireArgs=-Dspring.profiles.active=AMQP,TEST
+```
+
+The Docker image is based on `bellsoft/liberica-openjre-alpine:25-cds`. The CI pipeline builds and pushes it as a multi-arch image for
+`linux/amd64` and `linux/arm64`. A local single-arch image can be built with:
+
+```
+docker build -t openwms/org.openwms.core.preferences:latest .
+```
+
 # Resources
 
 | Module | Build Status | Quality | License | Maven Central | Docker Hub | Chat |

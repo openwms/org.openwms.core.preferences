@@ -9,10 +9,11 @@ spring:
     user:
       name: user
       password: sa
+  threads:
+    virtual:
+      enabled: true
   jackson:
     date-format: "yyyy-MM-dd'T'HH:mm:ssXXX" # Only matches Dates no Instants!
-    serialization:
-      fail_on_empty_beans: false
   jpa:
     mapping-resources:
       - META-INF/preferences-orm.xml
@@ -100,6 +101,10 @@ management:
   info:
     git:
       mode: simple
+  otlp:
+    metrics:
+      export:
+        enabled: false # Metrics are scraped by Prometheus, OTLP is only used for traces
   prometheus:
     metrics:
       export:
@@ -109,44 +114,15 @@ management:
 spring:
   config:
     activate:
-      on-profile: OTLP
-
-owms:
-  tracing:
-    url: http://localhost:4317
-
-management:
-  metrics:
-    distribution:
-      percentiles-histogram:
-        greeting: true
-        http:
-          server:
-            requests: true
-    tags:
-      application: ${spring.application.name}
-  opentelemetry:
-    tracing:
-      export:
-        otlp:
-          endpoint: ${owms.tracing.url}
-  tracing:
-    sampling:
-      probability: 1.0
-
----
-spring:
-  config:
-    activate:
-      on-profile: ASYNCHRONOUS
+      on-profile: AMQP
   rabbitmq:
     listener:
       simple:
         retry:
-          max-attempts: 3
           enabled: true
           initial-interval: 1s
           max-interval: 1s
+          max-retries: 3 # default: 3
 
 management:
   health:
@@ -175,9 +151,6 @@ spring:
     generate-ddl: true
     hibernate:
       ddl-auto: update
-  data:
-    jdbc:
-      dialect: ${DB_DIALECT:postgresql}
 
 ---
 spring:
@@ -186,13 +159,8 @@ spring:
       on-profile: MONGODB
   autoconfigure:
     exclude: []
-  data:
-    mongodb:
-      uri: ${DB_URL:mongodb://demo:DEMO@localhost/demodb}
-management:
-  health:
-    mongo:
-      enabled: false
+  mongodb:
+    uri: ${DB_URL:mongodb://demo:DEMO@localhost/demodb}
 
 ---
 # Might run in standalone or distributed environment
@@ -294,8 +262,6 @@ spring:
     generate-ddl: true
     properties:
       hibernate:
-        temp:
-          use_jdbc_metadata_defaults: false
         default_schema: public
     hibernate:
       ddl-auto: update

@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.openwms</groupId>
         <artifactId>org.openwms.parent</artifactId>
-        <version>28.0.M1</version>
+        <version>28.0</version>
         <relativePath/>
     </parent>
     <artifactId>org.openwms.core.preferences</artifactId>
@@ -34,10 +34,10 @@
     </developers>
 
     <properties>
-        <ameba-lib.version>4.3.0</ameba-lib.version>
-        <core.preferences.lib.version>1.2.0-SNAPSHOT</core.preferences.lib.version>
+        <ameba-lib.version>4.3.1-SNAPSHOT</ameba-lib.version>
         <core.preferences.ui.version>1.2.0-SNAPSHOT</core.preferences.ui.version>
-        <core.version>3.0.0</core.version>
+        <core.version>4.0.0-SNAPSHOT</core.version>
+        <preferences-starter.version>1.0.0-SNAPSHOT</preferences-starter.version>
         <spring-cloud-dependencies.version>2025.1.2</spring-cloud-dependencies.version>
         <spring-plugin-core.version>4.1.0</spring-plugin-core.version>
     </properties>
@@ -84,12 +84,6 @@
                         </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <layers>
-                        <configuration>${project.basedir}/src/layers.xml</configuration>
-                        <enabled>true</enabled>
-                    </layers>
-                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -97,10 +91,9 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.openwms</groupId>
-                <artifactId>org.openwms.core.preferences.lib</artifactId>
-                <version>${core.preferences.lib.version}</version>
-                <classifier>all</classifier>
+                <groupId>io.interface21</groupId>
+                <artifactId>preferences-spring-boot-starter</artifactId>
+                <version>${preferences-starter.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
@@ -115,9 +108,8 @@
     <dependencies>
         <!-- Project Dependencies -->
         <dependency>
-            <groupId>org.openwms</groupId>
-            <artifactId>org.openwms.core.preferences.lib</artifactId>
-            <classifier>all</classifier>
+            <groupId>io.interface21</groupId>
+            <artifactId>preferences-spring-boot-starter</artifactId>
         </dependency>
 
         <!-- Spring Dependencies -->
@@ -128,39 +120,11 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aspectj</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-hateoas</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-restclient</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -177,10 +141,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-oxm</artifactId>
         </dependency>
 
         <!-- Observability: Monitoring -->
@@ -227,22 +187,9 @@
             <artifactId>json-path</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.interface21</groupId>
-            <artifactId>ameba-lib</artifactId>
-        </dependency>
-        <dependency>
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>
             <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-processor</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>

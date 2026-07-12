@@ -3,6 +3,8 @@ The OpenWMS.org Preferences Service deals with configuration and preferences for
 configuration parameters in different validity scopes. Scopes can be merged and inherited. Preferences might be stored only valid for a
 particular *User* or a specific *Role*, specific to a *Module* (aka microservice) or the whole *Application*.
 
+The service is built with Spring Boot 4.1 and runs on Java 25 (BellSoft Liberica).
+
 | scope        | applied to                                                                                                                                | inherits from  |
 |--------------|-------------------------------------------------------------------------------------------------------------------------------------------|----------------|
 | User         | Valid for the particular User only. Overrides all other inherited preferences (when not set to force)                                     | Role           |

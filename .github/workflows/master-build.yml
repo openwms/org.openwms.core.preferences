@@ -13,7 +13,7 @@ jobs:
     name: Build & Test Microservice
     services:
       rabbitmq:
-        image: rabbitmq:3.8
+        image: openwms/rabbitmq:latest
         env:
           RABBITMQ_DEFAULT_USER: guest
           RABBITMQ_DEFAULT_PASS: guest
@@ -96,39 +96,69 @@ jobs:
           git_user_signingkey: true
           git_commit_gpgsign: true
 
+      - name: Build & Test
+        if: steps.version-check.outputs.should_publish != 'true'
+        run: >
+          ./mvnw verify
+          -DsurefireArgs=-Dspring.profiles.active=AMQP,TEST
+          -Dspring.rabbitmq.host=localhost
+          -Dci.buildNumber=$GITHUB_RUN_NUMBER
+          -U -B $MAVEN_OPTS
+
       - name: Build & Deploy
+        if: steps.version-check.outputs.should_publish == 'true'
         run: >
           ./mvnw deploy
-          -DsurefireArgs=-Dspring.profiles.active=ASYNCHRONOUS,TEST
+          -DsurefireArgs=-Dspring.profiles.active=AMQP,TEST
           -Dspring.rabbitmq.host=localhost
           -Dci.buildNumber=$GITHUB_RUN_NUMBER
           -U -B -Prelease,release-central,gpg $MAVEN_OPTS
 
-      - name: Build Image
-        run: ./scripts/docker_build ${{ steps.version-check.outputs.version }}
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Upload Image
-        run: ./scripts/docker_push ${{ steps.version-check.outputs.version }}
-        env:
-          DOCKER_USER: ${{ secrets.DOCKER_USER }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Login to Docker Hub
+        uses: docker/login-action@v4
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push Image
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: openwms/org.openwms.core.preferences:${{ steps.version-check.outputs.version }}
+          cache-from: type=gha,scope=standard
+          cache-to: type=gha,mode=max,scope=standard
 
       - name: Build Enterprise
         run: >
           ./mvnw clean verify
-          -DsurefireArgs=-Dspring.profiles.active=ASYNCHRONOUS,TEST
+          -DsurefireArgs=-Dspring.profiles.active=AMQP,TEST
           -Dspring.rabbitmq.host=localhost
           -Dci.buildNumber=$GITHUB_RUN_NUMBER
           -Penterprise,release,gpg -B $MAVEN_OPTS
 
-      - name: Build Enterprise Image
-        run: ./scripts/enterprise/docker_build ${{ steps.version-check.outputs.version }}
+      - name: Login to Enterprise Registry
+        uses: docker/login-action@v4
+        with:
+          registry: registry.openwms.cloud
+          username: ${{ secrets.REPO_USERNAME }}
+          password: ${{ secrets.REPO_PASSWORD }}
 
-      - name: Upload Enterprise Image
-        run: ./scripts/enterprise/docker_push ${{ steps.version-check.outputs.version }}
-        env:
-          DOCKER_USER: ${{ secrets.REPO_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.REPO_PASSWORD }}
+      - name: Push Enterprise Image
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: registry.openwms.cloud/interface21.io/org.openwms.core.preferences:${{ steps.version-check.outputs.version }}
+          cache-from: type=gha,scope=enterprise
+          cache-to: type=gha,mode=max,scope=enterprise
 
       - name: Install tools
         if: steps.version-check.outputs.should_publish == 'true'
@@ -142,8 +172,8 @@ jobs:
         if: steps.version-check.outputs.should_publish == 'true'
         run: >
           ./mvnw post-integration-test site scm-publish:publish-scm
-          -DsurefireArgs=-Dspring.profiles.active=ASYNCHRONOUS,TEST,TESTPG
-          -Dargs=-Dspring.profiles.active=ASYNCHRONOUS,TEST,TESTPG
+          -DsurefireArgs=-Dspring.profiles.active=AMQP,TEST,TESTPG
+          -Dargs=-Dspring.profiles.active=AMQP,TEST,TESTPG
           -Dspring.datasource.url=jdbc:postgresql://localhost:5432/testdb
           -Dspring.rabbitmq.host=localhost
           -Dscmpublish.pubScmUrl=scm:git:https://openwms:$PUSHKEY@github.com/openwms/org.openwms.core.preferences.git
