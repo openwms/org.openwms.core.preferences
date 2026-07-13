@@ -35,7 +35,7 @@
 
     <properties>
         <ameba-lib.version>4.3.0</ameba-lib.version>
-        <core.preferences.ui.version>1.2.0</core.preferences.ui.version>
+        <core.preferences.ui.version>1.2.1</core.preferences.ui.version>
         <core.version>4.0.0</core.version>
         <preferences-starter.version>1.0.0</preferences-starter.version>
         <spring-cloud-dependencies.version>2025.1.2</spring-cloud-dependencies.version>
