@@ -53,6 +53,8 @@ owms:
 
 server:
   port: ${PORT:8125}
+  compression:
+    enabled: true
 
 eureka:
   client:
