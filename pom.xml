@@ -10,7 +10,7 @@
         <relativePath/>
     </parent>
     <artifactId>org.openwms.core.preferences</artifactId>
-    <version>1.2.2</version>
+    <version>1.2.3-SNAPSHOT</version>
     <name>OpenWMS.org CORE: Preferences</name>
     <description>Manages preferences and application configuration parameters for microservices, users and roles</description>
     <url>https://openwms.github.io/${project.artifactId}/index.html</url>
@@ -35,9 +35,9 @@
 
     <properties>
         <ameba-lib.version>4.3.0</ameba-lib.version>
-        <core.preferences.ui.version>1.2.2</core.preferences.ui.version>
+        <core.preferences.ui.version>1.2.3-SNAPSHOT</core.preferences.ui.version>
         <core.version>4.0.0</core.version>
-        <preferences-starter.version>1.1.0</preferences-starter.version>
+        <preferences-starter.version>1.1.1-SNAPSHOT</preferences-starter.version>
         <spring-cloud-dependencies.version>2025.1.2</spring-cloud-dependencies.version>
         <spring-plugin-core.version>4.1.0</spring-plugin-core.version>
     </properties>
